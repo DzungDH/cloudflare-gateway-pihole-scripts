@@ -1,0 +1,44 @@
+{
+    "name": "cloudflare-gateway-pihole",
+    "main": "src/index.ts",
+    "compatibility_date": "2024-01-01",
+    "compatibility_flags": [
+        "nodejs_compat"
+    ],
+    "triggers": {
+        "crons": [
+            "0 3 * * 1"
+        ] // Run at 3 AM every Monday
+    },
+    "vars": {
+        "BLOCK_PAGE_ENABLED": "1",
+        "ALLOWLIST_URLS": "",
+        "BLOCKLIST_URLS": ""
+    },
+    "durable_objects": {
+        "bindings": [
+            {
+                "name": "FILTER_STATE",
+                "class_name": "FilterStateManager"
+            }
+        ]
+    },
+    "migrations": [
+        {
+            "tag": "v1",
+            "new_classes": [
+                "FilterStateManager"
+            ]
+        }
+    ],
+    "bindings": {
+        "FILTER_KV": {
+            "binding": "KV_NAMESPACE"
+        }
+    },
+    "env": {
+        "production": {
+            "vars": {} // Telegram tokens will be set via wrangler secret
+        }
+    }
+}
