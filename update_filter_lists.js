@@ -142,14 +142,13 @@ async function processLists() {
 
         if (isOk) {
             blocklist.add(domain);
+            if (domains.size > LIST_ITEM_LIMIT) {
+                console.warn(`Blocklist exceeds limit of ${LIST_ITEM_LIMIT} items, ignore ${domain}.`);
+                // Limit blocklist
+                continue;
+            }
             domains.push(domain);
         }
-    }
-
-    if (blocklist.size > LIST_ITEM_LIMIT) {
-        console.warn(`Blocklist exceeds limit of ${LIST_ITEM_LIMIT} items. Trimming to limit.`);
-        // Limit blocklist
-        blocklist = new Set([...blocklist].slice(0, LIST_ITEM_LIMIT));
     }
 
     const numberOfLists = Math.ceil(domains.length / LIST_ITEM_SIZE);
