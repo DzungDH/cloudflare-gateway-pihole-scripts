@@ -43,3 +43,11 @@ jobs:
           CLOUDFLARE_LIST_ITEM_LIMIT: ${{ secrets.CLOUDFLARE_LIST_ITEM_LIMIT }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+
+  keepalive:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - uses: liskin/gh-workflow-keepalive@v1
