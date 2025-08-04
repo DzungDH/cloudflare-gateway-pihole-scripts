@@ -142,7 +142,7 @@ async function processLists() {
 
         if (isOk) {
             blocklist.add(domain);
-            if (domains.length > LIST_ITEM_LIMIT) {
+            if (domains.length > LIST_ITEM_LIMIT - LIST_ITEM_SIZE) {
                 console.warn(`Blocklist exceeds limit of ${LIST_ITEM_LIMIT} items, ignore ${domain}.`);
                 // Limit blocklist
                 continue;
